@@ -22,19 +22,40 @@ class Sheets(formatMoviesToJSON):
         gs = gspread.authorize(credentials)
         # print(gs.open('Movie List').sheet1.col_values(1))
         try:
-            self.__sheet = gs.open('Movie List').sheet1
+            self.sheet = gs.open('Movie List').sheet1
         except:
             sys.exit('Failed to load sheet named "Movie List"')
+   
+    def add_new_movies(self):
+        """
+        movieList: JSON format
+        Takes in a JSON dump and adds each movie to excel sheet
+        """
+        try:
+            with open('temp.json', 'r') as fp:
+                movies = json.load(fp)
+        except:
+            sys.exit('Failed to open "temp.json"')
+        for movie in range(len(movies.keys())):
+            if not self.old_data(list(movies[str(movie)].values())):
+                self.sheet.append_row(list(movies[str(movie)].values()))
     
-    def get_row(self):
-        print(self.__sheet.row_values(1))
-        print(self.__sheet.get_all_values())
+    def reformat_text_file(self, filename):
+        self.writeToJSON(os.getcwd(), 'temp', self.cvtMovie(filename))
 
-    
+    def get_row(self):
+        print(self.sheet.row_values(1))
+        print(self.sheet.get_all_values())
+
+    def old_data(self, data):
+        return data in self.sheet.get_all_values()
 
 def main():
-    sheet = Sheets('client_secret.json')
-    sheet.get_row()
+    manager = Sheets('client_secret.json') 
+    
+    manager.reformat_text_file('test.txt')
+    manager.add_new_movies()
+
     
 
 

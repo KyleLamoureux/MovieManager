@@ -18,7 +18,7 @@ class formatMoviesToJSON():
             temp_dict['Rating'] = self.clean_string(splt_line[1])
             temp_dict['Date'] = self.clean_string(splt_line[2])
             temp_dict['Location'] = self.clean_string(splt_line[3])
-            temp_dict['Genre'] = self.clean_string(splt_line[4]).split(',')
+            temp_dict['Genre'] = self.clean_string(splt_line[4])
             temp_dict['Comment'] = self.clean_string(splt_line[5])
             data[key] = temp_dict
         readf.close()
