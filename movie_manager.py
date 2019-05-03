@@ -10,7 +10,7 @@ from autoformat_data import formatMoviesToJSON
 
 class Sheets(formatMoviesToJSON):
     """ Class to hold custom google sheet calls """
-    
+
     def __init__(self, secret, sheet=None):
         """ 
         Initialize with the file name or path to the file with credentials
@@ -20,7 +20,6 @@ class Sheets(formatMoviesToJSON):
                  'https://www.googleapis.com/auth/drive']
         credentials = ServiceAccountCredentials.from_json_keyfile_name(secret, scope)
         gs = gspread.authorize(credentials)
-        # print(gs.open('Movie List').sheet1.col_values(1))
         try:
             self.sheet = gs.open('Movie List').sheet1
         except:
@@ -43,12 +42,18 @@ class Sheets(formatMoviesToJSON):
     def reformat_text_file(self, filename):
         self.writeToJSON(os.getcwd(), 'temp', self.cvtMovie(filename))
 
-    def get_row(self):
-        print(self.sheet.row_values(1))
-        print(self.sheet.get_all_values())
-
     def old_data(self, data):
         return data in self.sheet.get_all_values()
+
+    def sort_data_by_date(self, descend=True):
+        movies = self.sheet.get_all_values()
+        movies.pop(0)
+        date_list = []
+        for index, movie in enumerate(movies):
+            date_list.append(movie[2].replace('-',''))
+        sorted_movies = [x for y, x in sorted(zip(date_list, movies), reverse=descend)]
+        return sorted_movies
+
 
 def main():
     manager = Sheets('client_secret.json') 
@@ -56,7 +61,7 @@ def main():
     manager.reformat_text_file('test.txt')
     manager.add_new_movies()
 
-    
+    print(manager.sort_data_by_date(descend=False))
 
 
 

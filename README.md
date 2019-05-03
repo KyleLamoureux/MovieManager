@@ -7,3 +7,6 @@ Temp name for now as I wasn't sure what I'd wanna call it
 
 - I have taken my current movies watch this year list off my phone and converted it to JSON format.
 - Now once its in JSON I'm going to get it to fill in the spread sheet
+
+### Can sort by:
+- Date: ascending/descending
