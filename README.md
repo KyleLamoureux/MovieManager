@@ -8,5 +8,9 @@ Temp name for now as I wasn't sure what I'd wanna call it
 - I have taken my current movies watch this year list off my phone and converted it to JSON format.
 - Now once its in JSON I'm going to get it to fill in the spread sheet
 
+- It's running slow. Almost certainly because of the requests its making. Idea to speed it up: get the sheet and cache it so all the operations are done on it and I only interact with the real one if I have to.
+
 ### Can sort by:
 - Date: ascending/descending
+
+Most annoyingly none of the packages I've looked into do what I want or work... So do it the good ol fashion way
