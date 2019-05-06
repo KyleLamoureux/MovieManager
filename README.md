@@ -5,4 +5,5 @@ Script will scan the label 'Movies' in your gmail box once a day at 6pm which it
 It will convert all the new movies with that label to JSON so I can easily parse it to add it to the sheets. It will then delete all trace of running removing emails etc. And send you an email letting know that it has been ran. 
 
 must have setup a config file which contains your gmail password and username. password being a code generated on your google account to give 'devices access'. Need a client secret from google right now to have access to your sheets.
-Not really in a shareable state ATM but works great for me cool projec to practice my python and do somethings I was interested in experimenting with
+
+- Not really in a shareable state ATM but works great for me cool project to practice my python and do somethings I was interested in experimenting with
