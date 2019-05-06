@@ -5,8 +5,12 @@ import os
 import json
 import gspread
 
+import config
+
 from oauth2client.service_account import ServiceAccountCredentials
+
 from autoformat_data import FormatMoviesToJSON
+from gmail_handler import *
 
 class Sheets(FormatMoviesToJSON):
     """ Class to hold custom google sheet calls """
@@ -80,10 +84,22 @@ class Sheets(FormatMoviesToJSON):
 
 
 def main():
+    manager = Sheets('client_secret.json') 
+    email = GmailHandler(config.USERNAME, config.PASSWORD)
+    movie_data = email.retrieve_email()
+    if movie_data:
+        manager.reformat_data('temp', movie_data)
+        manager.add_new_movies('temp.json')
+        if email.alert_email():
+            #os.remove('temp.txt')
+            os.remove('temp.json')
+     
     #for x in manager.sort_data_by_col(1, descend=False): print(x)
     #print()
     #for y in manager.sort_data_by_col(1, descend=True): print(y)
+    
     #for z in manager.extract_data("Avengers", 0): print(z)
+
 
 if  __name__ == "__main__":
     main()

@@ -9,6 +9,7 @@ import traceback
 class GmailHandler():
 
     def __init__(self, username, password):
+        """ Password must be an access code created in the security section of your account """
         self.username = username
         self.password = password
 
@@ -47,10 +48,3 @@ class GmailHandler():
         except Exception:
             traceback.print_exc()
         return True
-
-#import config
-#
-#if __name__ == '__main__':
-#    c = GmailHandler(config.USERNAME, config.PASSWORD)
-#    c.alert_email()
-

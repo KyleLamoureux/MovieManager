@@ -46,10 +46,6 @@ class FormatMoviesToJSON():
 
 def main():
     m = formatMoviesToJSON()
-    #c = m.cvtMovie(data=['gfs!10/10!51-12-532!sdfsdf!fgdfgdf!dfgdfg'])
-    #print(c)
-    #m.writeToJSON(os.getcwd(), 'movies', m.cvtMovie('curr_list.txt'))
-    #m.makeReadableJSON(os.getcwd(), 'movies.json', 'movies_readable')
 
 if __name__ == "__main__":
     main()
