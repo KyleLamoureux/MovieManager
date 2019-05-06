@@ -1,4 +1,4 @@
-#!usr/bin/env python
+#!/usr/bin/env python3
 
 import smtplib 
 import imaplib
@@ -6,7 +6,7 @@ import sys
 import email
 import traceback
 
-class gmail_handler():
+class GmailHandler():
 
     def __init__(self, username, password):
         self.username = username
@@ -36,13 +36,21 @@ class gmail_handler():
         except Exception:
             traceback.print_exc()
 
-    def send_email(self):
+    def alert_email(self):
         """ Will email yourself to alert that a new movie has been added """
         try:
             session = smtplib.SMTP('smtp.gmail.com:587')
             session.ehlo()
             session.starttls()
             session.login(self.username, self.password)
-            session.sendmail(self.username, self.password, 'New Movie Has Been Added')
+            session.sendmail(self.username, self.username, 'New Movie Has Been Added')
         except Exception:
             traceback.print_exc()
+        return True
+
+#import config
+#
+#if __name__ == '__main__':
+#    c = GmailHandler(config.USERNAME, config.PASSWORD)
+#    c.alert_email()
+

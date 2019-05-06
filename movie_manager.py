@@ -1,14 +1,18 @@
-#!usr/bin/env python
+#!/usr/bin/env python3
 
 import sys
 import os
 import json
 import gspread
 
-from oauth2client.service_account import ServiceAccountCredentials
-from autoformat_data import formatMoviesToJSON
+import config
 
-class Sheets(formatMoviesToJSON):
+from oauth2client.service_account import ServiceAccountCredentials
+
+from autoformat_data import FormatMoviesToJSON
+from gmail_handler import *
+
+class Sheets(FormatMoviesToJSON):
     """ Class to hold custom google sheet calls """
 
     def __init__(self, secret, sheet=None):
@@ -39,8 +43,8 @@ class Sheets(formatMoviesToJSON):
             if not self.old_data(list(movies[str(movie)].values())):
                 self.sheet.append_row(list(movies[str(movie)].values()))
     
-    def reformat_text_file(self, output_filename, data_filename):
-        self.writeToJSON(os.getcwd(), output_filename, self.cvtMovie(data_filename))
+    def reformat_data(self, output_filename, data):
+        self.writeToJSON(os.getcwd(), output_filename, self.cvtMovie(data))
 
     def old_data(self, data):
         """ Check if data is identical """
@@ -81,15 +85,20 @@ class Sheets(formatMoviesToJSON):
 
 def main():
     manager = Sheets('client_secret.json') 
-    
-    manager.reformat_text_file('test', 'test.txt')
-    manager.add_new_movies('test.json')
-
+    email = GmailHandler(config.USERNAME, config.PASSWORD)
+    movie_data = email.retrieve_email()
+    if movie_data:
+        manager.reformat_data('temp', movie_data)
+        manager.add_new_movies('temp.json')
+        if email.alert_email():
+            #os.remove('temp.txt')
+            os.remove('temp.json')
+     
     #for x in manager.sort_data_by_col(1, descend=False): print(x)
     #print()
     #for y in manager.sort_data_by_col(1, descend=True): print(y)
     
-    for z in manager.extract_data("Avengers", 0): print(z)
+    #for z in manager.extract_data("Avengers", 0): print(z)
 
 
 if  __name__ == "__main__":
