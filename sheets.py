@@ -82,14 +82,12 @@ class Sheets(FormatMoviesToJSON):
                 requested.append(row)
         return requested
 
-
 def main():  
     #for x in manager.sort_data_by_col(1, descend=False): print(x)
-    #print()
+    print()
     #for y in manager.sort_data_by_col(1, descend=True): print(y)
     
     #for z in manager.extract_data("Avengers", 0): print(z)
-
 
 if  __name__ == "__main__":
     main()

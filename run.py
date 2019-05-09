@@ -16,6 +16,5 @@ def main():
         if email.alert_email():
             os.remove('temp.json')
 
-
 if __name__ == '__main__':
     main()
