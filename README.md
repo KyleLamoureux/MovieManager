@@ -1,6 +1,6 @@
 # Movie Manager
 
-Will return to improve this soon. Generalize it, create a web interface to display queries, mess around with docker.
+Will return to improve this soon. Generalize it, create a web interface to display queries, mess around with docker, scrape actual movie details off wikipedia/IMBD.
 
 Script will scan the label 'Movies' in your gmail box once a day at 6pm which it does by just calling the script with a crontab:
 `0 18 * * * cd path/to/movie_tracker && /usr/bin/python3 run.py > /tmp/movie_manager.log 2>&1`
