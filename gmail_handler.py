@@ -29,7 +29,9 @@ class GmailHandler():
                 for index in str(email.message_from_bytes((new_movies[0]))).replace('\n','').split(' '):
                     retcode, email_data = session.fetch(index, '(RFC822)')
                     if retcode == 'OK':
-                        scraped_data.append(email.message_from_bytes(email_data[0][1]).as_string().split('\n')[11])
+                        r  = (email.message_from_bytes(email_data[0][1]))
+                        if r.is_multipart():
+                            scraped_data.append(r.get_payload()[0].as_string()[42:])
                 session.store('1:*', '+X-GM-LABELS', '\\Trash')
                 session.expunge()
             session.logout()

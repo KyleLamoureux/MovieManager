@@ -15,6 +15,7 @@ def main():
         manager.add_new_movies('temp.json')
         if email.alert_email():
             os.remove('temp.json')
+    print('Complete')
 
 if __name__ == '__main__':
     main()
